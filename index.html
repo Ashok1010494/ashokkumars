@@ -437,17 +437,14 @@ section {
   height: 1400px;
   border: none;
   border-radius: 8px;
-  background: white;
+  background: #ffffff !important;
   display: block;
   overflow: hidden;
 }
 
-.resume-fallback {
-  display: none;
-}
-
 @media (max-width: 768px) {
-  .resume-viewer { padding: 8px; }
+  #resume { display: none; }
+  .nav-link-desktop { display: none; }
 }
 
 .contact-section { text-align: center; padding: 80px 0; }
@@ -548,7 +545,7 @@ footer {
         <li><a href="#experience">Experience</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#education">Education</a></li>
-        <li><a href="#resume">Resume</a></li>
+        <li class="nav-link-desktop"><a href="#resume">Resume</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
@@ -825,8 +822,8 @@ footer {
     if (!frame) return;
     const width = frame.offsetWidth;
     // US Letter ratio: 11/8.5 = ~1.294
-    // Use 1.42 multiplier so the full page fits without scroll, with a small buffer
-    frame.style.height = (width * 1.42) + 'px';
+    // Use 1.30 — just slightly taller than exact ratio to prevent scroll
+    frame.style.height = (width * 1.30) + 'px';
   }
   window.addEventListener('load', sizeResumeFrame);
   window.addEventListener('resize', sizeResumeFrame);
