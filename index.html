@@ -225,6 +225,11 @@ body {
 section {
   padding: 56px 0;
   border-top: 1px solid var(--border);
+  scroll-margin-top: 80px;
+}
+
+.hero {
+  scroll-margin-top: 80px;
 }
 
 .section-label {
@@ -440,17 +445,18 @@ section {
 .resume-fallback {
   display: none;
   text-align: center;
-  padding: 40px 20px;
+  padding: 20px;
+  margin-top: 12px;
 }
 
 .resume-fallback p {
   color: var(--text-muted);
-  margin-bottom: 16px;
-  font-size: 14px;
+  margin-bottom: 12px;
+  font-size: 13px;
 }
 
 @media (max-width: 768px) {
-  .resume-frame { display: none; }
+  .resume-viewer { padding: 8px; }
   .resume-fallback { display: block; }
 }
 
@@ -531,7 +537,7 @@ footer {
     border-bottom: 1px solid var(--border);
   }
   .nav-mobile-toggle { display: block; }
-  .hero { flex-direction: column; align-items: flex-start; gap: 24px; padding: 48px 0 32px; }
+  .hero { flex-direction: column; align-items: flex-start; gap: 24px; padding: 32px 0 24px; scroll-margin-top: 70px; }
   .hero-photo { width: 100px; height: 100px; }
   .hero h1 { font-size: 32px; }
   .hero-title { font-size: 15px; }
@@ -766,7 +772,7 @@ footer {
     <div class="resume-viewer">
       <iframe src="Ashok_Kumar_S_Resume.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" class="resume-frame" title="Ashok Kumar S Resume" scrolling="no"></iframe>
       <div class="resume-fallback">
-        <p>Having trouble viewing the PDF?</p>
+        <p>For a better view on mobile:</p>
         <a href="Ashok_Kumar_S_Resume.pdf" target="_blank" class="contact-btn primary">
           <i class="ti ti-external-link"></i> Open Resume in New Tab
         </a>
@@ -810,10 +816,24 @@ footer {
 
   // Auto-close mobile nav when a link is clicked
   document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
       document.querySelector('.nav-links').classList.remove('open');
+      // For About link, scroll to absolute top instead of section anchor
+      if (link.getAttribute('href') === '#about') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   });
+
+  // Brand name click should scroll to absolute top
+  const brand = document.querySelector('.nav-brand');
+  if (brand) {
+    brand.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 
   // Dynamically size resume iframe to match US Letter aspect (8.5x11)
   function sizeResumeFrame() {
